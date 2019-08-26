@@ -1,0 +1,35 @@
+package com.xjwfk.o2o.controller.shop;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.xjwfk.o2o.entity.ShopCategory;
+import com.xjwfk.o2o.service.ShopCategoryService;
+import com.xjwfk.o2o.vo.Result;
+
+/**
+* @ClassName: ShopCategoryController
+* @Description: TODO(这里用一句话描述这个类的作用)
+* @author 白巾川
+* @date 2019年7月26日
+*/
+
+@Controller
+@RequestMapping("/shopManage/shopCategory")
+public class ShopCategoryController {
+	@Autowired
+	private ShopCategoryService shopCategoryService;
+	
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@ResponseBody
+	public Result< List<ShopCategory> > list(){
+		List<ShopCategory> shopCategoryList = shopCategoryService.getShopCategoryList(null);
+		Result< List<ShopCategory> > result = new Result<List<ShopCategory>>(true, shopCategoryList);
+		return result;
+	}
+}

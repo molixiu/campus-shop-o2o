@@ -1,0 +1,8 @@
+2019-08-13 13:03:51.842 [main] DEBUG c.x.o.mapper.PersonInfoMapper.queryPersonInfoById - ==>  Preparing: SELECT user_id, name, gender, email, profile_img, enable_status, user_type, create_time, last_edit_time FROM tb_person_info WHERE user_id = ? 
+2019-08-13 13:03:52.089 [main] DEBUG c.x.o.mapper.PersonInfoMapper.queryPersonInfoById - ==> Parameters: 1(Long)
+2019-08-13 13:03:52.293 [main] DEBUG c.x.o.mapper.PersonInfoMapper.queryPersonInfoById - <==      Total: 1
+2019-08-13 17:12:14.150 [main] DEBUG c.x.o2o.mapper.PersonInfoMapper.insertPersonInfo - ==>  Preparing: INSERT INTO tb_person_info(name,gender,email,profile_img,enable_status,user_type, create_time,last_edit_time) VALUES (?,?,?,?,?, ?,?,?) 
+2019-08-13 17:12:14.226 [main] DEBUG c.x.o2o.mapper.PersonInfoMapper.insertPersonInfo - ==> Parameters: null, null, null, null, 1(Integer), 1(Integer), null, null
+2019-08-13 17:12:14.415 [main] DEBUG c.x.o2o.mapper.PersonInfoMapper.insertPersonInfo - <==    Updates: 1
+2019-08-13 17:12:47.494 [main] DEBUG c.x.o2o.mapper.PersonInfoMapper.insertPersonInfo - ==>  Preparing: INSERT INTO tb_person_info(name,gender,email,profile_img,enable_status,user_type, create_time,last_edit_time) VALUES (?,?,?,?,?, ?,?,?) 
+2019-08-13 17:12:47.527 [main] DEBUG c.x.o2o.mapper.PersonInfoMapper.insertPersonInfo - ==> Parameters: null, null, null, null, 1(Integer), null, null, null

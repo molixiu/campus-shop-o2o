@@ -1,0 +1,125 @@
+package com.xjwfk.o2o.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.xjwfk.o2o.entity.Product;
+import com.xjwfk.o2o.entity.ProductImg;
+import com.xjwfk.o2o.enumes.ExecutionEnum;
+import com.xjwfk.o2o.enumes.QueryEnum;
+import com.xjwfk.o2o.exceptions.ProductOperationException;
+import com.xjwfk.o2o.mapper.ProductImgMapper;
+import com.xjwfk.o2o.mapper.ProductMapper;
+import com.xjwfk.o2o.service.ProductService;
+import com.xjwfk.o2o.utils.PageCalculator;
+import com.xjwfk.o2o.vo.PageBean;
+
+/**
+ * @ClassName: ProductServiceImpl
+ * @Description: TODO(service层关于商品的业务逻辑接口的实现类)
+ * @author 白巾川
+ * @date 2019年8月4日
+ */
+
+@Service
+public class ProductServiceImpl implements ProductService {
+	@Autowired
+	private ProductMapper productMapper;
+
+	@Autowired
+	private ProductImgMapper productImgMapper;
+
+	@Override
+	@Transactional
+	public ExecutionEnum addProduct(Product product) {
+		try {
+			if (product != null) {
+				int insertProduct = productMapper.insertProduct(product);
+				if (insertProduct > 0) { // 商品添加成功
+					Long productId = product.getProductId(); // 获得商品添加成功后返回的主键
+					List<ProductImg> productImgList = product.getProductImgList(); // 获得商品的详情图片集合
+					for (ProductImg productImg : productImgList) { // 设置商品详情图片的商品Id(对应数据库里的外键)
+						productImg.setProductId(productId);
+					}
+					ExecutionEnum executionEnum = this.batchAddProductImg(productImgList);
+					return executionEnum; // 商品和商品图片添加成功
+				} else {
+					throw new ProductOperationException(ExecutionEnum.FAIL.getStateInfo());
+				}
+			} else {
+				throw new ProductOperationException(ExecutionEnum.FAIL.getStateInfo());
+			}
+		} catch (Exception e) {
+			// 商品添加失败
+			throw new ProductOperationException(ExecutionEnum.FAIL.getStateInfo());
+		}
+	}
+
+	@Override
+	@Transactional
+	public ExecutionEnum batchAddProductImg(List<ProductImg> productImgList) {
+		try {
+			if (productImgList != null) {
+				int batchInsertProductImg = productImgMapper.batchInsertProductImg(productImgList);
+				if (batchInsertProductImg > 0) {
+					return ExecutionEnum.SUCCESS; // 批量添加商品详情图成功
+				} else {
+					throw new ProductOperationException(ExecutionEnum.FAIL.getStateInfo());
+				}
+			} else {
+				throw new ProductOperationException(ExecutionEnum.FAIL.getStateInfo());
+			}
+		} catch (Exception e) {
+			// 批量添加商品详情图失败
+			throw new ProductOperationException(ExecutionEnum.FAIL.getStateInfo());
+		}
+
+	}
+
+	@Override
+	@Transactional
+	public ExecutionEnum removeProduct(long productId, long shopId) {
+		try {
+			int deleteProductImgByProductId = productImgMapper.deleteProductImgByProductId(productId);
+			int deleteProduct = productMapper.deleteProduct(productId, shopId);
+			if (deleteProductImgByProductId >= 0 && deleteProduct > 0) { // 商品详情图片数目可能为0,所以这里>= 0
+				return ExecutionEnum.SUCCESS; // 删除商品成功
+			} else {
+				throw new ProductOperationException(ExecutionEnum.FAIL.getStateInfo());
+			}
+		} catch (Exception e) {
+			// 删除商品失败
+			throw new ProductOperationException(ExecutionEnum.FAIL.getStateInfo());
+		}
+	}
+
+	@Override
+	public PageBean<Product> getProductList(Product productCondition, int pageIndex, int pageSize) {
+		int rowIndex = PageCalculator.calculateRowIndex(pageIndex, pageSize);
+
+		try {
+			List<Product> queryProductList = productMapper.queryProductList(productCondition, rowIndex, pageSize);
+			int queryProductCount = productMapper.queryProductCount(productCondition);
+
+			PageBean<Product> pageBean = new PageBean<>(queryProductCount, pageSize, queryProductList);
+			return pageBean; // 查询商店信息成功
+		} catch (Exception e) {
+			// 查询商品失败
+			throw new ProductOperationException(QueryEnum.FAIL.getStateInfo());
+		}
+	}
+
+	@Override
+	public Product getProduct(long productId) {
+		try {
+			Product product = productMapper.queryProductById(productId);
+			return product;	//查询商品成功
+		} catch (Exception e) {
+			// 查询商品失败
+			throw new ProductOperationException(QueryEnum.FAIL.getStateInfo());
+		}
+	}
+}

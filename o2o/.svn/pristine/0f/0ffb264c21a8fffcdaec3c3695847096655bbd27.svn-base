@@ -1,0 +1,65 @@
+package com.xjwfk.o2o.controller.shop;
+
+import java.io.IOException;
+
+import org.csource.common.MyException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.xjwfk.o2o.entity.Shop;
+import com.xjwfk.o2o.enumes.ExecutionEnum;
+import com.xjwfk.o2o.service.ShopService;
+import com.xjwfk.o2o.utils.FastDFSClient;
+import com.xjwfk.o2o.vo.PageBean;
+import com.xjwfk.o2o.vo.Result;
+
+/**
+ * @ClassName: ShopController
+ * @Description: TODO(这里用一句话描述这个类的作用)
+ * @author 白巾川
+ * @date 2019年7月25日
+ */
+
+@Controller
+@RequestMapping("/shopManage")
+public class ShopController {
+
+	@Autowired
+	private ShopService shopService;
+
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	@ResponseBody
+	public Result<Shop> register(Shop shop, @RequestParam(value = "Img", required = false) MultipartFile uploadFile)
+			throws IOException, MyException {
+		// 获得上传文件名和上传文件扩展名
+		String uploadFileName = uploadFile.getOriginalFilename();
+		String uploadFileExtName = uploadFileName.substring(uploadFileName.lastIndexOf(".") + 1);
+
+		// 将文件上传到文件服务器并返回该文件在文件服务器的URL
+		String uploadPath = FastDFSClient.uploadFile(uploadFile.getBytes(), uploadFileExtName);
+		// shop.setShopImg(uploadPath);
+
+		// shopService.addShop(shop);
+
+		return null;
+	}
+
+	@RequestMapping(value = "/list")
+	@ResponseBody
+	public Result<PageBean<Shop>> list(Shop shopCondition, @RequestParam(defaultValue = "0") int pageIndex,
+			@RequestParam(defaultValue = "20") int pageSize) {
+		Result<PageBean<Shop>> result = null;
+		try {
+			PageBean<Shop> pageBean = shopService.getShopList(shopCondition, pageIndex, pageSize);
+			result = new Result<>(true, pageBean);
+		} catch (Exception e) {
+			result = new Result<>(false, ExecutionEnum.FAIL.getState(), ExecutionEnum.FAIL.getStateInfo());
+		}
+		return result;
+	}
+}

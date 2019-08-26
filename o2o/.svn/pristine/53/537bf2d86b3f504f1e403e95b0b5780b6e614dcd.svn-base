@@ -1,0 +1,97 @@
+package com.xjwfk.o2o.controller.frontend;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.xjwfk.o2o.entity.Area;
+import com.xjwfk.o2o.entity.Shop;
+import com.xjwfk.o2o.entity.ShopCategory;
+import com.xjwfk.o2o.enumes.QueryEnum;
+import com.xjwfk.o2o.exceptions.ShopCategoryOperationException;
+import com.xjwfk.o2o.service.AreaService;
+import com.xjwfk.o2o.service.ShopCategoryService;
+import com.xjwfk.o2o.service.ShopService;
+import com.xjwfk.o2o.vo.PageBean;
+import com.xjwfk.o2o.vo.Result;
+
+/**
+ * @ClassName: ShopListController
+ * @Description: TODO(前台商店列表展示)
+ * @author 白巾川
+ * @date 2019年8月7日
+ */
+
+@Controller
+@RequestMapping("/frontend/")
+public class ShopListController {
+	@Autowired
+	private ShopCategoryService shopCategoryService;
+
+	@Autowired
+	private AreaService areaService;
+
+	@Autowired
+	private ShopService shopService;
+
+	@RequestMapping(value = "shopCategory/listByParentId", method = RequestMethod.GET)
+	@ResponseBody
+	public Result<List<ShopCategory>> listShopCategoryByParentId(long parentId) {
+		Result<List<ShopCategory>> result;
+
+		try {
+			// 设置查询条件
+			ShopCategory shopCategoryParent = new ShopCategory();
+			shopCategoryParent.setShopCategoryId(parentId);
+			ShopCategory shopCategoryCondition = new ShopCategory();
+			shopCategoryCondition.setParent(shopCategoryParent);
+
+			List<ShopCategory> data = shopCategoryService.getShopCategoryList(shopCategoryCondition);
+			result = new Result<>(QueryEnum.SUCCESS.getSuccess(), data);// 查询成功
+		} catch (Exception e) {
+			// 查询失败
+			result = new Result<>(QueryEnum.FAIL.getSuccess(), QueryEnum.FAIL.getState(),
+					QueryEnum.FAIL.getStateInfo());
+		}
+		return result;
+	}
+
+	@RequestMapping(value = "area/list", method = RequestMethod.GET)
+	@ResponseBody
+	public Result<List<Area>> listArea() {
+		Result<List<Area>> result;
+
+		try {
+			List<Area> data = areaService.getAreaList();
+			result = new Result<>(QueryEnum.SUCCESS.getSuccess(), data);// 查询成功
+		} catch (Exception e) {
+			// 查询失败
+			result = new Result<>(QueryEnum.FAIL.getSuccess(), QueryEnum.FAIL.getState(),
+					QueryEnum.FAIL.getStateInfo());
+		}
+		return result;
+	}
+
+	@RequestMapping(value = "shop/list", method = RequestMethod.GET)
+	@ResponseBody
+	public Result<PageBean<Shop>> listShop(Shop shopCondition, @RequestParam("pageIndex") int pageIndex,
+			@RequestParam("pageSize") int pageSize) {
+		Result<PageBean<Shop>> result;
+		
+		try {
+			PageBean<Shop> data = shopService.getShopList(shopCondition, pageIndex, pageSize);
+			result = new Result<>(QueryEnum.SUCCESS.getSuccess(), data);// 查询成功
+		} catch (Exception e) {
+			// 查询失败
+			result = new Result<>(QueryEnum.FAIL.getSuccess(), QueryEnum.FAIL.getState(),
+					QueryEnum.FAIL.getStateInfo());
+		}
+		return result;
+	}
+
+}

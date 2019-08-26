@@ -1,0 +1,22 @@
+2019-08-07 10:32:51.141 [main] DEBUG com.xjwfk.o2o.mapper.HeadLineMapper.insertHeadLine - ==>  Preparing: INSERT INTO tb_head_line(line_name,line_link,line_img,priority, enable_status, create_time,last_edit_time) VALUES (?,?,?,?, ?,?,?) 
+2019-08-07 10:32:51.290 [main] DEBUG com.xjwfk.o2o.mapper.HeadLineMapper.insertHeadLine - ==> Parameters: 冷饮(String), null, null, 3(Integer), 1(Integer), 2019-08-07 10:32:45.898(Timestamp), 2019-08-07 10:32:45.898(Timestamp)
+2019-08-07 10:34:01.750 [main] DEBUG com.xjwfk.o2o.mapper.HeadLineMapper.insertHeadLine - ==>  Preparing: INSERT INTO tb_head_line(line_name,line_link,line_img,priority, enable_status, create_time,last_edit_time) VALUES (?,?,?,?, ?,?,?) 
+2019-08-07 10:34:01.832 [main] DEBUG com.xjwfk.o2o.mapper.HeadLineMapper.insertHeadLine - ==> Parameters: 冷饮(String), aa(String), null, 3(Integer), 1(Integer), 2019-08-07 10:34:00.387(Timestamp), 2019-08-07 10:34:00.387(Timestamp)
+2019-08-07 10:36:11.759 [main] DEBUG com.xjwfk.o2o.mapper.HeadLineMapper.insertHeadLine - ==>  Preparing: INSERT INTO tb_head_line(line_name,line_link,line_img,priority, enable_status, create_time,last_edit_time) VALUES (?,?,?,?, ?,?,?) 
+2019-08-07 10:36:11.836 [main] DEBUG com.xjwfk.o2o.mapper.HeadLineMapper.insertHeadLine - ==> Parameters: 冷饮(String), aa(String), (String), 3(Integer), 1(Integer), 2019-08-07 10:36:10.351(Timestamp), 2019-08-07 10:36:10.351(Timestamp)
+2019-08-07 10:36:11.996 [main] DEBUG com.xjwfk.o2o.mapper.HeadLineMapper.insertHeadLine - <==    Updates: 1
+2019-08-07 10:37:21.792 [main] DEBUG com.xjwfk.o2o.mapper.HeadLineMapper.insertHeadLine - ==>  Preparing: INSERT INTO tb_head_line(line_name,line_link,line_img,priority, enable_status, create_time,last_edit_time) VALUES (?,?,?,?, ?,?,?) 
+2019-08-07 10:37:21.873 [main] DEBUG com.xjwfk.o2o.mapper.HeadLineMapper.insertHeadLine - ==> Parameters: 冷饮(String), aa(String), (String), 3(Integer), 1(Integer), 2019-08-07 10:37:20.395(Timestamp), 2019-08-07 10:37:20.395(Timestamp)
+2019-08-07 10:37:22.041 [main] DEBUG com.xjwfk.o2o.mapper.HeadLineMapper.insertHeadLine - <==    Updates: 1
+2019-08-07 10:49:27.761 [main] DEBUG com.xjwfk.o2o.mapper.HeadLineMapper.queryHeadLine - ==>  Preparing: SELECT line_id, line_name, line_link, line_img, priority, enable_status, create_time, last_edit_time FROM tb_head_line ORDER BY priority DESC 
+2019-08-07 10:49:27.908 [main] DEBUG com.xjwfk.o2o.mapper.HeadLineMapper.queryHeadLine - ==> Parameters: 
+2019-08-07 10:49:28.102 [main] DEBUG com.xjwfk.o2o.mapper.HeadLineMapper.queryHeadLine - <==      Total: 2
+2019-08-07 10:50:26.422 [main] DEBUG com.xjwfk.o2o.mapper.HeadLineMapper.queryHeadLine - ==>  Preparing: SELECT line_id, line_name, line_link, line_img, priority, enable_status, create_time, last_edit_time FROM tb_head_line WHERE enable_status = ? ORDER BY priority DESC 
+2019-08-07 10:50:26.507 [main] DEBUG com.xjwfk.o2o.mapper.HeadLineMapper.queryHeadLine - ==> Parameters: 1(Integer)
+2019-08-07 10:50:26.633 [main] DEBUG com.xjwfk.o2o.mapper.HeadLineMapper.queryHeadLine - <==      Total: 2
+2019-08-07 11:13:02.060 [main] DEBUG com.xjwfk.o2o.mapper.HeadLineMapper.queryHeadLine - ==>  Preparing: SELECT line_id, line_name, line_link, line_img, priority, enable_status, create_time, last_edit_time FROM tb_head_line ORDER BY priority DESC 
+2019-08-07 11:13:02.106 [main] DEBUG com.xjwfk.o2o.mapper.HeadLineMapper.queryHeadLine - ==> Parameters: 
+2019-08-07 11:13:02.227 [main] DEBUG com.xjwfk.o2o.mapper.HeadLineMapper.queryHeadLine - <==      Total: 2
+2019-08-07 12:53:34.223 [main] DEBUG c.x.o.mapper.ShopCategoryMapper.queryShopCategory - ==>  Preparing: SELECT shop_category_id, shop_category_name, shop_category_desc, shop_category_img, priority, create_time, last_edit_time, parent_id FROM tb_shop_category WHERE parent_id is null ORDER BY priority DESC 
+2019-08-07 12:53:34.271 [main] DEBUG c.x.o.mapper.ShopCategoryMapper.queryShopCategory - ==> Parameters: 
+2019-08-07 12:53:34.408 [main] DEBUG c.x.o.mapper.ShopCategoryMapper.queryShopCategory - <==      Total: 2

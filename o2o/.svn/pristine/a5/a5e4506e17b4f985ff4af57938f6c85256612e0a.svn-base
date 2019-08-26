@@ -1,0 +1,47 @@
+package com.xjwfk.o2o.service;
+
+import com.xjwfk.o2o.entity.Shop;
+import com.xjwfk.o2o.enumes.ExecutionEnum;
+import com.xjwfk.o2o.vo.PageBean;
+
+/**
+* @ClassName: ShopService
+* @Description: TODO(这里用一句话描述这个类的作用)
+* @author 白巾川
+* @date 2019年7月24日
+*/
+public interface ShopService {
+	
+	/**   
+	 * @Title: addShop   
+	 * @Description: TODO(添加店铺)   
+	 * @param: @param shop
+	 * @param: @return      
+	 * @return: ExecutionEnum      
+	 * @throws   
+	 */  
+	public ExecutionEnum addShop(Shop shop);
+	
+	
+	/**   
+	 * @Title: modifyShop   
+	 * @Description: TODO(更改店铺信息)   
+	 * @param: @param shop
+	 * @param: @return      
+	 * @return: ExecutionEnum      
+	 * @throws   
+	 */  
+	public ExecutionEnum modifyShop(Shop shop);
+	
+	/**   
+	 * @Title: getShopList   
+	 * @Description: TODO(分页查询)   
+	 * @param: @param shopCondition
+	 * @param: @param pageIndex
+	 * @param: @param pageSize
+	 * @param: @return      
+	 * @return: PageBean<Shop>      
+	 * @throws   
+	 */  
+	public PageBean<Shop> getShopList(Shop shopCondition, int pageIndex, int pageSize);
+}

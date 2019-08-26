@@ -1,0 +1,30 @@
+package com.xjwfk.o2o.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.xjwfk.o2o.entity.Shop;
+import com.xjwfk.o2o.enumes.ExecutionEnum;
+import com.xjwfk.o2o.mapper.ShopMapper;
+import com.xjwfk.o2o.service.ShopService;
+
+@Service
+public class ShopServiceImpl implements ShopService {
+	@Autowired
+	private ShopMapper shopMapper;
+	
+	@Override
+	@Transactional
+	public ExecutionEnum addShop(Shop shop) {
+		int insertShop = shopMapper.insertShop(shop);
+		return insertShop > 0? ExecutionEnum.SUCCESS : ExecutionEnum.FAIL;
+	}
+
+	@Override
+	public ExecutionEnum modifyShop(Shop shop) {
+		int updateShop = shopMapper.updateShop(shop);
+		return updateShop > 0? ExecutionEnum.SUCCESS : ExecutionEnum.FAIL;
+	}
+
+}

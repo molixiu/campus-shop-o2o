@@ -1,0 +1,48 @@
+package com.xjwfk.o2o.controller.shop;
+
+import java.util.List;
+
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.xjwfk.o2o.entity.Area;
+import com.xjwfk.o2o.service.AreaService;
+import com.xjwfk.o2o.vo.Result;
+
+import org.slf4j.Logger;
+
+/**
+* @ClassName: AreaController
+* @Description: TODO(web层关于区域的控制器)
+* @author 白巾川
+* @date 2019年7月18日
+*/
+
+@Controller
+@RequestMapping("/shopManage/area/")
+public class AreaController {
+	private Logger logger = LoggerFactory.getLogger(AreaController.class);
+	
+	@Autowired
+	private AreaService areaService;
+	
+	@RequestMapping(value="list", method=RequestMethod.GET)
+	@ResponseBody
+	public Result< List<Area> > list(){
+		logger.info("===start===");
+		long startTime = System.currentTimeMillis(); 
+		
+		List<Area> areaList = areaService.getAreaList();
+		Result< List<Area> > result = new Result<>(true, areaList);
+		long endTime = System.currentTimeMillis();
+		
+		logger.debug("costTime[${}ms]",endTime - startTime);
+		logger.info("===end===");
+		
+		return result;
+	}
+}

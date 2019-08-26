@@ -1,0 +1,10 @@
+com\xjwfk\o2o\entity\ProductImg.class
+com\xjwfk\o2o\entity\LocalAuth.class
+com\xjwfk\o2o\entity\Shop.class
+com\xjwfk\o2o\entity\WechatAuth.class
+com\xjwfk\o2o\entity\PersonInfo.class
+com\xjwfk\o2o\entity\Product.class
+com\xjwfk\o2o\entity\ShopCategory.class
+com\xjwfk\o2o\entity\ProductCategory.class
+com\xjwfk\o2o\entity\HeadLine.class
+com\xjwfk\o2o\entity\Area.class

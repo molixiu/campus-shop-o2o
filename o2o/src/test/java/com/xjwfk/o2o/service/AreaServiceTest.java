@@ -1,0 +1,27 @@
+package com.xjwfk.o2o.service;
+
+import java.util.List;
+
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.xjwfk.o2o.BaseTest;
+import com.xjwfk.o2o.entity.Area;
+
+/**
+* @ClassName: AreaServiceTest
+* @Description: TODO(对service层的AreaService进行测试)
+* @author 白巾川
+* @date 2019年7月18日
+*/
+
+public class AreaServiceTest extends BaseTest {
+	@Autowired
+	private AreaService areaService;
+	
+	@Test
+	public void test_getAreaList() {
+		List<Area> areaList = areaService.getAreaList();
+		System.out.println(areaList.size());
+	}
+}

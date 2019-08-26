@@ -1,0 +1,101 @@
+package com.xjwfk.o2o.service;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.xjwfk.o2o.BaseTest;
+import com.xjwfk.o2o.entity.Product;
+import com.xjwfk.o2o.entity.ProductCategory;
+import com.xjwfk.o2o.entity.ProductImg;
+import com.xjwfk.o2o.entity.Shop;
+import com.xjwfk.o2o.enumes.ExecutionEnum;
+import com.xjwfk.o2o.mapper.ProductMapper;
+import com.xjwfk.o2o.vo.PageBean;
+
+/**
+* @ClassName: ProductServiceTest
+* @Description: TODO(对service层的ProductService进行测试)
+* @author 白巾川
+* @date 2019年8月4日
+*/
+public class ProductServiceTest extends BaseTest {
+	@Autowired
+	private ProductService productService;
+	
+	@Autowired
+	private ProductMapper productMapper;
+	
+	@Test
+	public void test_addProduct() {
+		Shop shop1 = new Shop();
+		shop1.setShopId(3L);
+		
+		ProductCategory pc1 = new ProductCategory();
+		pc1.setProductCategoryId(1L);
+		
+		Product product1 = new Product();
+		product1.setProductName("测试6");
+		product1.setProductDesc("测试Desc2");
+		product1.setImgAddr("test1");
+		product1.setPriority(2);
+		product1.setEnableStatus(1);
+		product1.setCreateTime(new Date());
+		product1.setLastEditTime(new Date());
+		product1.setShop(shop1);
+		product1.setProductCategory(pc1);
+		
+		ProductImg productImg1 = new ProductImg();
+		productImg1.setImgAddr("图片1");
+		productImg1.setImgDesc("测试图片1");
+		productImg1.setPriority(1);
+		productImg1.setCreateTime(new Date());
+		
+		ProductImg productImg2 = new ProductImg();
+		productImg2.setImgAddr("图片2");
+		productImg2.setPriority(1);
+		productImg2.setCreateTime(new Date());
+		
+		List<ProductImg> productImgList = new ArrayList<ProductImg>();
+		productImgList.add(productImg1);
+		productImgList.add(productImg2);
+		
+		product1.setProductImgList(productImgList);
+		
+		ExecutionEnum executionEnum = productService.addProduct(product1);
+		System.out.println(executionEnum.getStateInfo());
+	}
+	
+	@Test
+	public void test_removeProduct() {
+		ExecutionEnum removeProduct = productService.removeProduct(16L, 3L);
+		System.out.println(removeProduct);
+	}
+	
+	@Test
+	public void test_getProductList() {
+		Product productCondition = new Product();
+		
+		PageBean<Product> pageBean = productService.getProductList(productCondition, 0, 10);
+		System.out.println(pageBean.getTotal());
+		System.out.println(pageBean.getRows().size());
+	}
+	
+	@Test
+	public void test_getProduct() {
+		Product product = productService.getProduct(3L);
+		System.out.println(product);
+	}
+	
+	@Test
+	public void test_modifyProduct() {
+		Product product = productMapper.queryProductById(3L);
+		product.setEnableStatus(0);
+		ExecutionEnum executionEnum = productService.modifyProduct(product, null);
+		System.out.println(executionEnum.getStateInfo());
+	}
+	
+}
